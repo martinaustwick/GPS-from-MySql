@@ -43,6 +43,8 @@ ArrayList<Bike> bikes;
 
 void createBikes()
 {
+    println("creating bikes");
+    int bikeTime = millis();
     bikes = new ArrayList<Bike>();
     //routes.getRowCount()
     for(int it=0 ; it<routes.getRowCount();it++)
@@ -50,7 +52,7 @@ void createBikes()
         TableRow tr = routes.getRow(it);
         
         //date filter coming up
-        if(tr.getString("date").equals("2017-04-02"))
+        if(tr.getString("date").equals("2017-04-02") || 1==1)
         {
             Bike b = new Bike();
             b.points = new ArrayList<PVector>();
@@ -117,6 +119,6 @@ void createBikes()
         }
     }
     
-    println(bikes.size());
+    println(bikes.size() + " bikes created in " + (millis()-bikeTime) + "ms");
     
 }

@@ -12,7 +12,7 @@
   
   int batch, batchSize;
   
-  int sam = 12*3600;
+  int sam = 6*3600;
   int increment = 10;
   
   boolean movie = true;
@@ -42,13 +42,13 @@
   
   void draw()
   {
-      fill(0,4);
+      fill(0,5);
       noStroke();
       rect(width/2,height/2,width,height);
      
       //drawAll();
       //batch+=batchSize;
-      stroke(255,10);
+      stroke(255,15);
       for(Bike b:bikes)
       {
           b.display();
@@ -57,7 +57,7 @@
       
       sam+=increment;
       
-      if(movie)
+      if(movie && sam<(24*3600))
       {
           saveFrame("images/######.png");
       }
