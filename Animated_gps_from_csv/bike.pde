@@ -4,22 +4,33 @@ class Bike
     ArrayList<PVector> points;
     int currentIndex = 0;
     int previousIndex = 0;
+    int weekday;
     int duration, samStart; 
     
     Bike(){}
     
     void display()
     {
+        //stroke(255*(1-weekday), 128, 255*weekday, 20);
+        if(weekday==1) stroke(217,78,151,20);
+        else stroke(250,205,0,20);
+        
         if(sam>samStart && sam<(samStart+duration))
         {
-            findIndex();
+            bikesActive++;
+            if(weekday==1) weekdayActive++;
+            else weekendActive++;
+          
             
-            for(int drawi = previousIndex; drawi<=currentIndex; drawi++)
+            findIndex();
+            if(sam>sam0)
             {
-              if(drawi<points.size()) p =  points.get(drawi);
-              point(p.x,p.y);
+              for(int drawi = previousIndex; drawi<=currentIndex; drawi++)
+              {
+                if(drawi<points.size()) p =  points.get(drawi);
+                point(p.x,p.y);
+              }
             }
-            //currentIndex++;
         }
     }
     
@@ -47,12 +58,16 @@ void createBikes()
     int bikeTime = millis();
     bikes = new ArrayList<Bike>();
     //routes.getRowCount()
+    totalWeekday = 0;
+    totalWeekend = 0;
+    
     for(int it=0 ; it<routes.getRowCount();it++)
     {
         TableRow tr = routes.getRow(it);
         
         //date filter coming up
-        if(tr.getString("date").equals("2017-04-02") || 1==1)
+        //if(tr.getString("date").equals("2017-04-02") || 1==1)
+        if(tr.getInt("OneWeek")>-1  && it<100000)
         {
             Bike b = new Bike();
             b.points = new ArrayList<PVector>();
@@ -61,6 +76,10 @@ void createBikes()
             int startTime = tr.getInt("sam")+int(random(3600));
             b.samStart = startTime;
             b.duration = tr.getInt("duration");
+            b.weekday = tr.getInt("Weekday");
+            
+            totalWeekday += b.weekday;
+            totalWeekend += (1-b.weekday);
             
             //distance in pixels
             float totalDist = 0;
@@ -119,6 +138,7 @@ void createBikes()
         }
     }
     
-    println(bikes.size() + " bikes created in " + (millis()-bikeTime) + "ms");
-    
+    println(bikes.size() + " bikes created in " + (millis()-bikeTime) + "ms ");
+    println(totalWeekday + "("+ (100*totalWeekday/bikes.size()) +  "%) weekday and " + totalWeekend + "(" + (100*totalWeekend/bikes.size()) + "%) weekend; checksum " + (totalWeekday + totalWeekend));
+
 }

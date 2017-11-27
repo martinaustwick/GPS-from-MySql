@@ -12,7 +12,7 @@ void drawClock()
       fill(0);
       rectMode(CENTER);
       
-      translate(width-(3*fontSize), height);
+      translate(width-(3*fontSize), 3*fontSize);
       
       rect(0, -(0.5*fontSize)-5, 6*fontSize, fontSize+10);
       fill(255);
