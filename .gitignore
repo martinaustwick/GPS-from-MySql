@@ -2,3 +2,11 @@
 *.png
 
 *.csv
+
+*.geojson
+
+Routes_geojson/data.csv
+
+Routes_geojson/desktop.ini
+
+Routes_geojson/error eg.txt
